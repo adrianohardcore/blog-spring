@@ -1,6 +1,5 @@
 blog-spring
 ===========
 
-Projeto de estudo com Spring MVC + Spring Data JPA
-alterado
-s
+Projeto de estudo com Spring MVC + Spring Data JPA + Maven
+

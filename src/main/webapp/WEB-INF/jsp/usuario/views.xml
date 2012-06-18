@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE tiles-definitions PUBLIC "-//Apache Software Foundation//DTD Tiles Configuration 2.1//EN" "http://tiles.apache.org/dtds/tiles-config_2_1.dtd">
+<tiles-definitions>
+	<definition extends="default" name="usuario/formulario">
+		<put-attribute name="body" value="/WEB-INF/jsp/usuario/formulario.jsp" />
+	</definition>
+	<definition extends="default" name="usuario/cadastro">
+		<put-attribute name="body" value="/WEB-INF/jsp/usuario/cadastro.jsp" />
+	</definition>
+	<definition extends="default" name="usuario/listagem">
+		<put-attribute name="body" value="/WEB-INF/jsp/usuario/listagem.jsp" />
+	</definition>
+	
+	
+	<definition extends="default" name="usuario/edicao">
+		<put-attribute name="body" value="/WEB-INF/jsp/usuario/edicao.jsp" />
+	</definition>
+	
+	<definition extends="default" name="usuario/exibir">
+		<put-attribute name="body" value="/WEB-INF/jsp/usuario/exibir.jsp" />
+	</definition>
+	
+</tiles-definitions>
