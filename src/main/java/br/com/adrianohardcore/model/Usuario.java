@@ -8,19 +8,17 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
 import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
-import javax.persistence.UniqueConstraint;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
-import org.hibernate.annotations.Check;
 import org.hibernate.validator.constraints.Email;
 import org.springframework.format.annotation.DateTimeFormat;
-import org.springframework.test.annotation.Timed;
 
-@Entity
+@Entity(name="usuario")
 public class Usuario implements Serializable{
 
 	/**
@@ -58,7 +56,10 @@ public class Usuario implements Serializable{
     private Date dataCriacao;
     
     @DateTimeFormat
-    private Date dataModificacao;   
+    private Date dataModificacao;      
+    
+	@OneToOne
+	private Regra regra;
 
 	public Long getId() {
 		return id;
@@ -102,19 +103,15 @@ public class Usuario implements Serializable{
 	
 	@PreUpdate
     public void preUpdate() {
-		System.out.println("##############");
         dataModificacao = new Date();
     }
     
     @PrePersist
     public void prePersist() {
-		System.out.println("##############");
         Date now = new Date();
         dataCriacao = now;
         dataModificacao = now;
-    }
-	
-	
+    }	
 
 	public Date getDataCriacao() {
 		return dataCriacao;
@@ -134,7 +131,14 @@ public class Usuario implements Serializable{
 		this.dataModificacao = dataModificacao;
 	}
 
-	
-	
+	public Regra getRegra() {
+		return regra;
+	}
+
+	public void setRegra(Regra regra) {
+		this.regra = regra;
+	}
+
+
 }
 

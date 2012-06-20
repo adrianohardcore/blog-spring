@@ -67,6 +67,24 @@ static
 					size="30" />
 			</p>
 			<p>
+				<label for="regra">Regra:</label>
+				<form:errors path="senha" cssClass="error" />
+				<br />		
+					<select id='regra'>
+						<option value='1'>Admin</option>
+						<option value='2' selected='selected'>Regular</option>
+					</select>					
+			</p>					
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			<p>
 				<input id="criar" type="submit" value="Salvar" />
 			</p>
 		</form:form>

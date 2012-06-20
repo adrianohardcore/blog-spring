@@ -11,14 +11,6 @@
 <head>
 <title>Cadastrar</title>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<style type="text/css" media="screen">
-@import
-url(
-"<c:url value="
-/
-static
-/styles/style.css"/>");
-</style>
 
 </head>
 <body>
@@ -26,11 +18,8 @@ static
 		<h1>Cadastrar</h1>		
 		<div id="ErroGeral">
 			${mensagem}
-		</div>
-		
-		<label for="id">Id:</label>
-		${id}   		
-		
+		</div>		
+
 		<c:url var="url" value="/usuario" />
 		<form:form action="${url}" method="POST" modelAttribute="usuario">		
 			<p>

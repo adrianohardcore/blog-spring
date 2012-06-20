@@ -12,7 +12,7 @@ public class Role {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
-	
+	 
 	@OneToOne
 	private User user;
 	private Integer role;
