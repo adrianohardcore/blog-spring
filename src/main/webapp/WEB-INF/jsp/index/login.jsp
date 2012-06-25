@@ -13,12 +13,12 @@
 			<legend>Login Here</legend>
 			
 			<p>
-			<label for="j_username">Username</label>:
+			<label for="j_username">Usuário</label>:
 			<input id="j_username" name="j_username" size="20" maxlength="50" type="text"/>
 			</p>
 			
 			<p>
-			<label for="j_password">Password</label>:
+			<label for="j_password">Senha</label>:
 			<input id="j_password" name="j_password" size="20" maxlength="50" type="password"/>
 			</p>
 			

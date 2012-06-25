@@ -8,7 +8,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToOne;
+import javax.persistence.ManyToOne;
 import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
 import javax.validation.Valid;
@@ -58,7 +58,9 @@ public class Usuario implements Serializable{
     @DateTimeFormat
     private Date dataModificacao;      
     
-	@OneToOne
+	//@OneToOne
+    //@OneToMany
+    @ManyToOne	
 	private Regra regra;
 
 	public Long getId() {
@@ -111,6 +113,8 @@ public class Usuario implements Serializable{
         Date now = new Date();
         dataCriacao = now;
         dataModificacao = now;
+        
+        //regra.setRegra("NOVO");
     }	
 
 	public Date getDataCriacao() {

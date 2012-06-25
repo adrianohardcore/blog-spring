@@ -21,6 +21,7 @@
 					<th>Nome</th>
 					<th>Usuário</th>
 					<th>Email</th>
+					<th>Permissão</th>
 					<th></th>
 					<th></th>
 					<th></th>
@@ -32,6 +33,7 @@
 						<td>${usuario.nome}</td>
 						<td>${usuario.nomeUsuario}</td>
 						<td>${usuario.email}</td>
+						<td>${usuario.regra.regra}</td>
 
 						<td align="center"><form:form action="${url}/exibir"
 								method="GET">

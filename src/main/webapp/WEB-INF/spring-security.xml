@@ -15,35 +15,23 @@
 		<intercept-url pattern="/login" access="permitAll" />
 		<intercept-url pattern="/logout" access="permitAll" />
 		<intercept-url pattern="/" access="permitAll" />
+		<intercept-url pattern="/denied" access="hasRole('USUARIO')" />
+		<intercept-url pattern="/usuarios" access="hasRole('ADMINISTRADOR')" />
+		<intercept-url pattern="/usuario" access="hasRole('ADMINISTRADOR')" />
+		<intercept-url pattern="regras" access="hasRole('ADMINISTRADOR')" />
+		<intercept-url pattern="/regra" access="hasRole('ADMINISTRADOR')" />
 		
-		
-		<intercept-url pattern="/denied" access="hasRole('ROLE_USER')" />		
-<!-- 		<intercept-url pattern="/" access="hasRole('ROLE_USER')" /> -->
-		<intercept-url pattern="/user" access="hasRole('ROLE_USER')" />
-		<intercept-url pattern="/users" access="hasRole('ROLE_USER')" />
-		<intercept-url pattern="/admin" access="hasRole('ROLE_ADMIN')" />
-
-		<form-login login-page="/login" authentication-failure-url="/login/failure"
-			default-target-url="/" />
-
+		<form-login login-page="/login" authentication-failure-url="/login/failure" default-target-url="/" />
 		<access-denied-handler error-page="/denied" />
-
 		<logout invalidate-session="true" logout-success-url="/logout/success"
 			logout-url="/logout" />
 	</http>
 
-	<authentication-manager>
-		<authentication-provider user-service-ref="customUserDetailsService">
-			<password-encoder hash="md5" />
-		</authentication-provider>
+	<authentication-manager alias="authenticationManager">
+		<authentication-provider ref="ProvedorAutenticacao" />
 	</authentication-manager>
 
-
-<!-- 	<authentication-manager alias="authenticationManager"> -->
-<!-- 		<authentication-provider ref="autenticacao" /> -->
-<!-- 	</authentication-manager> -->
-
-<!-- 	<beans:bean name="autenticacao" -->
-<!-- 		class="br.com.adrianohardcore.security.Autenticar"> -->
-<!-- 	</beans:bean> -->
+	<beans:bean name="ProvedorAutenticacao"		  
+		class="br.com.adrianohardcore.service.LoginService">
+	</beans:bean>
 </beans:beans>

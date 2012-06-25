@@ -8,6 +8,8 @@
   <definition name="default" template="/WEB-INF/layouts/master-page.jsp">
     <put-attribute name="header" value="/WEB-INF/layouts/fragments/header.jsp" />
     <put-attribute name="menu" value="/WEB-INF/layouts/fragments/menu.jsp" />
+    <put-attribute name="menuAdministrador" value="/WEB-INF/layouts/fragments/menuAdministrador.jsp" />
+    <put-attribute name="menuUsuario" value="/WEB-INF/layouts/fragments/menuUsuario.jsp" />
     <put-attribute name="sub-menu" value="/WEB-INF/layouts/fragments/sub-menu.jsp" />
     <put-attribute name="footer" value="/WEB-INF/layouts/fragments/footer.jsp" />
   </definition>

@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import br.com.adrianohardcore.model.Usuario;
+import br.com.adrianohardcore.repository.RegraRepository;
 import br.com.adrianohardcore.repository.UsuarioRepository;
 import br.com.adrianohardcore.service.UsuarioService;
 
@@ -25,6 +26,9 @@ public class UsuarioController {
 	@Resource
 	private UsuarioRepository usuarioRepository;
 
+	@Resource
+	private RegraRepository regraRepository;
+
 	@RequestMapping(value = "/cadastro", method = RequestMethod.GET)
 	public String cadastro(Model model) {
 		model.addAttribute("usuario", new Usuario());
@@ -33,7 +37,7 @@ public class UsuarioController {
 
 	@RequestMapping(value = "/usuarios", method = RequestMethod.GET)
 	public String list(ModelMap modelMap) {
-		modelMap.addAttribute("usuarios", usuarioRepository.findAll());
+		modelMap.addAttribute("usuarios", usuarioRepository.findAll());		
 		return "usuario/listagem";
 	}
 
@@ -52,6 +56,7 @@ public class UsuarioController {
 			modelMap.addAttribute("mensagem", "Nome de usuário indisponivel!");
 			return "usuario/cadastro";
 		}
+		usuario.setRegra(regraRepository.findById((long)3));
 
 		usuarioService.salvar(usuario);
 		return "redirect:/usuarios";
@@ -66,24 +71,40 @@ public class UsuarioController {
 			return "redirect:/usuarios";
 		}
 		modelMap.addAttribute("usuario", usuario);
+		modelMap.addAttribute("regras", regraRepository.findAll());
+
 		return "usuario/edicao";
 	}
 
 	@RequestMapping(value = "/usuario/atualiza", method = RequestMethod.POST)
 	public String atualizar(@Valid Usuario usuario, BindingResult result,
 			ModelMap modelMap) {
+		
+		
+		System.out.println("############################################################################################");
+		System.out.println(usuario.getRegra());
+		System.out.println("############################################################################################");
+		
+		
 		if (result.hasErrors())
 			return "usuario/edicao";
+
+		Usuario usuarioDb = usuarioRepository.findById(usuario.getId());
+		usuarioDb.setNome(usuario.getNome());
+		usuarioDb.setNomeUsuario(usuario.getNomeUsuario());
+		usuarioDb.setSenha(usuario.getSenha());		
+		usuarioDb.setRegra(usuario.getRegra());
+
 		try {
-			usuarioService.salvar(usuario);
+			usuarioService.salvar(usuarioDb);
 			return "redirect:/usuarios";
 		} catch (Exception e) {
 			modelMap.addAttribute("mensagem",
 					"Não foi possivel atualizar o cadastro");
-			return "usuario/cadastro";
+			return "redirect:/usuario/atualiza";
 		}
 	}
-	
+
 	@RequestMapping(value = "/usuario/{id}/exibir", method = RequestMethod.GET)
 	public String exibir(@PathVariable("id") Long id, Model model,
 			RedirectAttributes attributes, ModelMap modelMap) {
@@ -94,15 +115,15 @@ public class UsuarioController {
 		}
 		modelMap.addAttribute("usuario", usuario);
 		return "usuario/exibir";
-	}    
-	
+	}
+
 	@RequestMapping(value = "/usuario/{id}/deletar", method = RequestMethod.POST)
-	public String delete(@PathVariable("id") Long id ,ModelMap modelMap) {
+	public String delete(@PathVariable("id") Long id, ModelMap modelMap) {
 		Usuario usuario = usuarioRepository.findById(id);
-		if (usuario == null) {   
-			modelMap.addAttribute("mensagem", "Usuário não cadastrado!");			
-		}		
-		usuarioService.deletar(usuario);		
+		if (usuario == null) {
+			modelMap.addAttribute("mensagem", "Usuário não cadastrado!");
+		}
+		usuarioService.deletar(usuario);
 		return "redirect:/usuarios";
 	}
 }
