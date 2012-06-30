@@ -1,5 +1,7 @@
 package br.com.adrianohardcore.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -80,15 +82,18 @@ public class MediatorController {
 	// return "index/index";
 	// }
 
-	@RequestMapping(value = "/{page}/{row}", method = RequestMethod.GET)
-	public String list(@PathVariable Integer page,Integer row, Model model) {
-		 Pageable pageRequest = new PageRequest(page - 1, row);
-		
-		 Page<Post> posts = postRepository.findAll(pageRequest);
-		 model.addAttribute("posts", posts);
-		
-		 return "index/index";
+	@RequestMapping(value = "/{page}", method = RequestMethod.GET)
+	public String list(@PathVariable Integer page, Integer row, Model model) {
+		Pageable pageRequest = new PageRequest(page - 1, 5);
 
+		// Page<Post> posts = postRepository.findAll(pageRequest);
+		// List<Post> posts = postRepository.findAll();
+		Page<Post> posts = postRepository.findAll(pageRequest);
+
+		model.addAttribute("posts", posts.getContent());
+
+		return "index/index";
+		//return posts.getContent();
 	}
 
 }
