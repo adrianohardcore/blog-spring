@@ -38,7 +38,7 @@ styles/style.css"/>");
 				<label for="body">Body:</label>
 				<form:errors path="body" cssClass="error" />
 				<br />
-				<form:textarea path="body" rows="10" cols="20"
+				<form:textarea path="body" rows="10" cols="20" maxlength="255"
 					cssStyle="width:250px" />
 			</p>
 			<p>
