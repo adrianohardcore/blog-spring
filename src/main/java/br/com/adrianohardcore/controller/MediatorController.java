@@ -32,6 +32,8 @@ public class MediatorController {
 		Pageable pageRequest = new PageRequest(page-1, 5 , sort);		
 		Page<Post> posts = postRepository.findAll(pageRequest);			
 		model.addAttribute("posts", posts.getContent());
+		model.addAttribute("pagina", page);
+		model.addAttribute("paginas", posts.getTotalPages());
 		return "index/index";		
 	}
 }

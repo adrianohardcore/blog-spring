@@ -31,5 +31,17 @@
 			</p>
 
 		</c:forEach>
+
+		<div id="menu">
+			<a href="<c:url value="/${pagina}"/>">${pagina}</a>
+		</div>
+
+
+		<div id="menu">
+			<a href="<c:url value="/${pagina}"/>">${pagina}</a>
+		</div>
+
+
+
 	</div>
 </div>
