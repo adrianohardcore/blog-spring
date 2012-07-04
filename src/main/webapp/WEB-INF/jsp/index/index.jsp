@@ -24,24 +24,11 @@
 				<!-- 					21, 2012</time> -->
 				<!-- 				&bull; 150 words -->
 				<time> ${post.dataCriacao} </time>
-
-
-
-
 			</p>
-
-		</c:forEach>
-
+		</c:forEach>		
 		<div id="menu">
-			<a href="<c:url value="/${pagina}"/>">${pagina}</a>
+			<a href="<c:url value="/${proximo}"/>">Próximo</a>
+			<a href="<c:url value="/${anterior}"/>">Anterior</a>
 		</div>
-
-
-		<div id="menu">
-			<a href="<c:url value="/${pagina}"/>">${pagina}</a>
-		</div>
-
-
-
 	</div>
 </div>

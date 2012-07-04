@@ -33,7 +33,19 @@ public class MediatorController {
 		Page<Post> posts = postRepository.findAll(pageRequest);			
 		model.addAttribute("posts", posts.getContent());
 		model.addAttribute("pagina", page);
-		model.addAttribute("paginas", posts.getTotalPages());
+		
+		Integer proximo = 0;
+		Integer anterior = 0;
+		if (posts.hasNextPage()){
+			proximo = page + 1;			
+		}
+		if (posts.hasPreviousPage()){
+			anterior = page - 1;
+		}
+		model.addAttribute("proximo", proximo);
+		model.addAttribute("anterior", anterior);		
+
+
 		return "index/index";		
 	}
 }
