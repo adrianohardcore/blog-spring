@@ -23,10 +23,11 @@ public class MediatorController {
 	
 	@RequestMapping(value = "/" , method = RequestMethod.GET)
 	public String post(Model model) {
-		return posts(1, model);
+		//return posts(1, model);
+		return "index/index";
 	}	
 
-	@RequestMapping(value = "/{page}", method = RequestMethod.GET)
+	@RequestMapping(value = "pagina/{page}", method = RequestMethod.GET)
 	public String posts(@PathVariable Integer page, Model model) {		
 		Sort sort = new Sort(Direction.DESC, "id");		
 		Pageable pageRequest = new PageRequest(page-1, 5 , sort);		
@@ -46,6 +47,6 @@ public class MediatorController {
 		model.addAttribute("anterior", anterior);		
 
 
-		return "index/index";		
+		return "index/posts";		
 	}
 }
