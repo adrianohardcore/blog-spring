@@ -44,8 +44,7 @@ public class MediatorController {
 			anterior = page - 1;
 		}
 		model.addAttribute("proximo", proximo);
-		model.addAttribute("anterior", anterior);		
-
+		model.addAttribute("anterior", anterior);
 
 		return "index/posts";		
 	}

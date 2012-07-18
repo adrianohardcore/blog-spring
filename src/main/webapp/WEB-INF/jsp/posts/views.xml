@@ -8,9 +8,12 @@
 		<put-attribute name="body" value="/WEB-INF/jsp/posts/list.jsp" />
 	</definition>
 	<definition extends="default" name="posts/show">
-		<put-attribute name="body" value="/WEB-INF/jsp/posts/show.jsp" />
+		<put-attribute name="body" value="/WEB-INF/jsp/posts/show.jsp" />		
 	</definition>
-		<definition extends="default" name="posts/update">
+	
+	<definition extends="default" name="posts/update">
 		<put-attribute name="body" value="/WEB-INF/jsp/posts/update.jsp" />
 	</definition>
+	
+	
 </tiles-definitions>

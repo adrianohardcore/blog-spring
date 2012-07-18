@@ -11,23 +11,22 @@
 
 <script type="text/javascript">
 
-$(function() {
-	var dados = jQuery(this).serialize();
-	var proximo = 1;
+	$(function() {
+		var dados = jQuery(this).serialize();
+		var proximo = 1;
 
-	jQuery.ajax({
-		type : "get",
-		url : "pagina/1",
-		data : dados,
-		success : function(data) {
-			$('#conteudo').append( data);
-			//alert(data);
-		}
+		jQuery.ajax({
+			type : "get",
+			url : "pagina/" + proximo,
+			data : dados,
+			success : function(data) {
+				$('#conteudo').append( data);				
+			}
 	});
 
-	return false;
 	
-	jQuery('#ajax_form').submit(function() {
+	
+ 	jQuery('#ajax_form').submit(function() {
 		var dados = jQuery(this).serialize();
 		var proximo = 2;
 		
