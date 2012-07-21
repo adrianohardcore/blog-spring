@@ -3,6 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+
 <head>
 <title>Blog do Adriano</title>
 <script type='text/javascript'
@@ -10,56 +11,31 @@
 </head>
 
 <script type="text/javascript">
-
 	$(function() {
 		var dados = jQuery(this).serialize();
-		var proximo = 1;
-
-		jQuery.ajax({
-			type : "get",
-			url : "pagina/" + proximo,
-			data : dados,
-			success : function(data) {
-				$('#conteudo').append( data);				
-			}
-	});
-
-	
-	
- 	jQuery('#ajax_form').submit(function() {
-		var dados = jQuery(this).serialize();
-		var proximo = 2;
-		
-
-		jQuery.ajax({
-			type : "get",
-			url : "pagina/" + proximo,
-			data : dados,
-			success : function(data) {
-				$('#conteudo').append( data);
-				//alert(data);
-			}
+		var proximo = 0;
+		Carregar()
+		jQuery('#mais').click(function() {
+			Carregar()
+			return false;
 		});
-
-		return false;
-	});
-
-
-	    
-});
-	jQuery(document).ready(function() {		
+		function Carregar() {
+			var dados = jQuery(this).serialize();
+			proximo++
+			jQuery.ajax({
+				type : "get",
+				url : "pagina/" + proximo,
+				data : dados,
+				success : function(data) {
+					$('#conteudo').append(data);
+				}
 			});
+			return false;
+		}
+	});
 </script>
-
-
-
 <div id="conteudo"></div>
 
-<form method="post" action="" id="ajax_form">
-	<label><input type="submit" name="enviar" value="Mais" /></label>
-</form>
-
-
-
-
-
+<form:form>
+	<input id="mais" type="submit" name="enviar" value="Ver mais" />
+</form:form>
