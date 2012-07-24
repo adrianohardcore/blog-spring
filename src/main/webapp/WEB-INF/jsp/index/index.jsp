@@ -14,14 +14,20 @@
 	$(function() {
 		var dados = jQuery(this).serialize();
 		var proximo = 0;
-		Carregar()
+		//Carregar()
+
 		jQuery('#mais').click(function() {
-			Carregar()
+			//Carregar()
+			loadJson()
+			//teste()
+
 			return false;
 		});
+
 		function Carregar() {
 			var dados = jQuery(this).serialize();
 			proximo++
+
 			jQuery.ajax({
 				type : "get",
 				url : "pagina/" + proximo,
@@ -30,12 +36,44 @@
 					$('#conteudo').append(data);
 				}
 			});
+
+			return false;
+		}
+
+		function teste() {
+			alert("Teste");
+			return false;
+		}
+
+		function loadJson() {
+
+			jQuery.ajax({
+				type : "get",
+				dataType : 'json',
+				url : "records2",
+				data : dados,
+				success : function(data) {
+					$.each(data,function(){
+						alert(this['title']);	
+						//$('#title').append(this['title'])
+					});	
+				}
+			});
 			return false;
 		}
 	});
 </script>
-<div id="conteudo"></div>
 
 <form:form>
 	<input id="mais" type="submit" name="enviar" value="Ver mais" />
+
+	<div id="title"></div>
+	<div id="body"></div>
+	<div id="dataModificacao"></div>
+
+
 </form:form>
+
+
+<div id="conteudo"></div>
+
