@@ -10,66 +10,55 @@
 	src='<c:url value="/resources/js/jquery-1.7.2.min.js"/>'></script>
 </head>
 
+
 <script type="text/javascript">
-	$(function() {
-		var dados = jQuery(this).serialize();
-		var proximo = 0;
-		//Carregar()
-
-		jQuery('#mais').click(function() {
-			//Carregar()
-			loadJson()
-			//teste()
-
-			return false;
+		var pagina = 0;
+		
+		function load(){
+			//$.getJSON('page/1',(page:pagina),function(x){
+			$.getJSON('page/1',function(x){
+				$.each(x,function(){
+					$('ul#lista').append('<li>' + this['title'] + '</li>');
+				});				
+			});
+		};
+		
+		$(function() {
+			
+			jQuery('#mais').click(function() {
+				load();				
+				return false;
+			});
+			
+			
 		});
+			
+		
+// 			$.('#mais').click(function() {
+// 				alert("ok")
+// 				return false;
+// 			});			
+		
+		
+		
 
-		function Carregar() {
-			var dados = jQuery(this).serialize();
-			proximo++
-
-			jQuery.ajax({
-				type : "get",
-				url : "pagina/" + proximo,
-				data : dados,
-				success : function(data) {
-					$('#conteudo').append(data);
-				}
-			});
-
-			return false;
-		}
-
-		function teste() {
-			alert("Teste");
-			return false;
-		}
-
-		function loadJson() {
-
-			jQuery.ajax({
-				type : "get",
-				dataType : 'json',
-				url : "records2",
-				data : dados,
-				success : function(data) {
-					$.each(data,function(){
-						alert(this['title']);	
-						//$('#title').append(this['title'])
-					});	
-				}
-			});
-			return false;
-		}
-	});
+		
+		
+		
+		
 </script>
 
 <form:form>
 	<input id="mais" type="submit" name="enviar" value="Ver mais" />
 
+	<p>
 	<div id="title"></div>
+	<p>
 	<div id="body"></div>
-	<div id="dataModificacao"></div>
+	<p>
+	<div id="dataCriacao"></div>
+	
+	<ul id="lista" style="width:300px;"></ul>
 
 
 </form:form>

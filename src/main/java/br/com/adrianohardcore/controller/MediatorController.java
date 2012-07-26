@@ -56,6 +56,9 @@ public class MediatorController {
 	
 	@RequestMapping(value="page/{page}", method = RequestMethod.GET, produces="application/json")
 	public @ResponseBody List<PostDto> page(@PathVariable Integer page, Model model){
+		if (page < 1)
+			page = 1;		
+		
 		Sort sort = new Sort(Direction.DESC, "id");
 		Pageable pageRequest = new PageRequest(page - 1, 5, sort);
 		Page<Post> posts = postRepository.findAll(pageRequest);
