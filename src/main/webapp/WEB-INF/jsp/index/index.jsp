@@ -15,37 +15,33 @@
 		var pagina = 0;
 		
 		function load(){
-			//$.getJSON('page/1',(page:pagina),function(x){
-			$.getJSON('page/1',function(x){
+			pagina ++;		
+			$.getJSON('page',{page:pagina},function(x){
+			//$.getJSON('page/1',function(x){
 				$.each(x,function(){
 					$('ul#lista').append('<li>' + this['title'] + '</li>');
+					$('ul#lista').append('<li>' + this['body'] + '</li>');
+					$('ul#lista').append('<li>' + this['dataCiacao'] + '</li>');
 				});				
 			});
 		};
 		
 		$(function() {
+			load();	
+		
 			
-			jQuery('#mais').click(function() {
+			$('#mais').click(function() {				
+				//pagina ++;
 				load();				
 				return false;
 			});
 			
-			
-		});
-			
-		
-// 			$.('#mais').click(function() {
-// 				alert("ok")
-// 				return false;
-// 			});			
-		
-		
-		
-
-		
-		
-		
-		
+			$(window).scroll(function(){
+				if ($(window).scrollTop() + $(window).height() >= ($(document).height())){
+					load();						
+				}			
+			});			
+		});		
 </script>
 
 <form:form>

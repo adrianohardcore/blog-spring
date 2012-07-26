@@ -13,6 +13,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import br.com.adrianohardcore.dto.PostDto;
@@ -64,6 +65,21 @@ public class MediatorController {
 		Page<Post> posts = postRepository.findAll(pageRequest);
 		List<PostDto> userDtos = PostMapper.map(posts);
 		return userDtos;
+	}
+	
+	@RequestMapping(value="page", produces="application/json")
+	public @ResponseBody List<PostDto> page2(@RequestParam Integer page,Model model){
+		//Integer page = 1;
+		//if (page < 1)
+		//	page = 1;		
+		
+		Sort sort = new Sort(Direction.DESC, "id");   
+		Pageable pageRequest = new PageRequest(page - 1, 5, sort);
+		Page<Post> posts = postRepository.findAll(pageRequest);
+		List<PostDto> postDtos = PostMapper.map(posts);
+		model.addAttribute("pagina", posts.getSize());
+		
+		return postDtos;
 	}
 			
 
