@@ -3,7 +3,6 @@ package br.com.adrianohardcore.model;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.Set;
-
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -16,19 +15,12 @@ import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
 import javax.persistence.Table;
 import javax.validation.constraints.Size;
-
 import org.springframework.format.annotation.DateTimeFormat;
-
-
 
 @Entity
 @Table(name = "posts")  
 public class Post implements Serializable{
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
-	
+	private static final long serialVersionUID = 1L;	
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -42,7 +34,7 @@ public class Post implements Serializable{
 	//@Max(value=255, message="O conteúdo não pode ter mais que 255 caracteres!")	
 	private String body;
 	
-	@OneToMany(mappedBy="post", fetch=FetchType.EAGER, cascade = CascadeType.ALL)
+	@OneToMany(mappedBy="post", fetch=FetchType.LAZY, cascade = CascadeType.ALL)
 	private Set<Comment>  comments;
 	
 	private Long usuarioCriacao = (long) 1;

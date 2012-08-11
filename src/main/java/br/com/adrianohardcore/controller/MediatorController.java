@@ -20,12 +20,16 @@ import br.com.adrianohardcore.dto.PostDto;
 import br.com.adrianohardcore.dto.PostMapper;
 import br.com.adrianohardcore.model.Post;
 import br.com.adrianohardcore.repository.PostRepository;
+import br.com.adrianohardcore.service.PostService;
 
 @Controller
 @RequestMapping("/")
 public class MediatorController {
 	@Autowired
 	private PostRepository postRepository;
+	
+	@Autowired
+	private PostService postService;
 
 	private Integer proximo = 0;
 	private Integer anterior = 0;
@@ -68,19 +72,26 @@ public class MediatorController {
 	}
 	
 	@RequestMapping(value="page", produces="application/json")
-	public @ResponseBody List<PostDto> page2(@RequestParam Integer page,Model model){
-		//Integer page = 1;
-		//if (page < 1)
-		//	page = 1;		
-		
+	public @ResponseBody List<Post> page2(@RequestParam Integer page,Model model){		
 		Sort sort = new Sort(Direction.DESC, "id");   
 		Pageable pageRequest = new PageRequest(page - 1, 5, sort);
-		Page<Post> posts = postRepository.findAll(pageRequest);
-		List<PostDto> postDtos = PostMapper.map(posts);
+
+		Page<Post> posts = postService.list(pageRequest);
 		model.addAttribute("pagina", posts.getSize());
 		
-		return postDtos;
+		return posts.getContent();
 	}
+	
+//	@RequestMapping(value="page", produces="application/json")
+//	public @ResponseBody List<PostDto> page2(@RequestParam Integer page,Model model){		
+//		Sort sort = new Sort(Direction.DESC, "id");   
+//		Pageable pageRequest = new PageRequest(page - 1, 5, sort);
+//		Page<Post> posts = postRepository.findAll(pageRequest);
+//		List<PostDto> postDtos = PostMapper.map(posts);
+//		model.addAttribute("pagina", posts.getSize());
+//		
+//		return postDtos;
+//	}
 			
 
 //	@RequestMapping(value = "/records")

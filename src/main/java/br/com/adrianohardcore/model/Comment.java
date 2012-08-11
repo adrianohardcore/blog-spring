@@ -27,7 +27,7 @@ public class Comment implements Serializable {
 	private Long id;
 	@Size(min = 5, message = "O comentário não pode ter menos que 5 caracteres!")
 	private String comment;
-	@ManyToOne(fetch = FetchType.EAGER)
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "post_id", referencedColumnName = "id")
 	private Post post;
 
