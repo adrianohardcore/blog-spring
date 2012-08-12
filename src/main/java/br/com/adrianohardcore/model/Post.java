@@ -15,7 +15,11 @@ import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
 import javax.persistence.Table;
 import javax.validation.constraints.Size;
+
+import org.codehaus.jackson.map.annotate.JsonSerialize;
 import org.springframework.format.annotation.DateTimeFormat;
+
+import br.com.adrianohardcore.util.JsonDateSerializer;
 
 @Entity
 @Table(name = "posts")  
@@ -42,6 +46,7 @@ public class Post implements Serializable{
 	private Long usuarioModificacao = (long) 1;
 	
     @DateTimeFormat
+    @JsonSerialize(using=JsonDateSerializer.class)
     private Date dataCriacao;
     
     @DateTimeFormat

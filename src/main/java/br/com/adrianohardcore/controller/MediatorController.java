@@ -20,47 +20,21 @@ import br.com.adrianohardcore.dto.PostDto;
 import br.com.adrianohardcore.dto.PostMapper;
 import br.com.adrianohardcore.model.Post;
 import br.com.adrianohardcore.repository.PostRepository;
-import br.com.adrianohardcore.service.PostService;
 
 @Controller
 @RequestMapping("/")
 public class MediatorController {
 	@Autowired
 	private PostRepository postRepository;
+		
 	
-	@Autowired
-	private PostService postService;
-
-	private Integer proximo = 0;
-	private Integer anterior = 0;
-
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String post(Model model) {
 		return "index/index";
 	}
-
-	@RequestMapping(value = "pagina/{page}", method = RequestMethod.GET)
-	public String posts(@PathVariable Integer page, Model model) {
-		Sort sort = new Sort(Direction.DESC, "id");
-		Pageable pageRequest = new PageRequest(page - 1, 5, sort);
-		Page<Post> posts = postRepository.findAll(pageRequest);
-		model.addAttribute("posts", posts.getContent());
-		model.addAttribute("pagina", page);
-
-		if (posts.hasNextPage()) {
-			proximo = page + 1;
-		}
-		if (posts.hasPreviousPage()) {
-			anterior = page - 1;
-		}
-		model.addAttribute("proximo", proximo);
-		model.addAttribute("anterior", anterior);
-
-		return "index/posts";
-	}
 	
 	@RequestMapping(value="page/{page}", method = RequestMethod.GET, produces="application/json")
-	public @ResponseBody List<PostDto> page(@PathVariable Integer page, Model model){
+	public @ResponseBody List<PostDto> postsWs(@PathVariable Integer page, Model model){
 		if (page < 1)
 			page = 1;		
 		
@@ -69,19 +43,45 @@ public class MediatorController {
 		Page<Post> posts = postRepository.findAll(pageRequest);
 		List<PostDto> userDtos = PostMapper.map(posts);
 		return userDtos;
-	}
+	}	
+	
 	
 	@RequestMapping(value="page", produces="application/json")
-	public @ResponseBody List<Post> page2(@RequestParam Integer page,Model model){		
+	public @ResponseBody List<Post> postsToJson(@RequestParam Integer page,Model model){		
 		Sort sort = new Sort(Direction.DESC, "id");   
-		Pageable pageRequest = new PageRequest(page - 1, 5, sort);
-
-		Page<Post> posts = postService.list(pageRequest);
-		model.addAttribute("pagina", posts.getSize());
-		
+		Pageable pageRequest = new PageRequest(page - 1, 5, sort);   
+		Page<Post> posts = postRepository.findAll(pageRequest);
+		model.addAttribute("pagina", posts.getSize());		
 		return posts.getContent();
 	}
+
 	
+//	
+//	
+//	
+//	private Integer proximo = 0;
+//	private Integer anterior = 0;
+//
+//	@RequestMapping(value = "pagina/{page}", method = RequestMethod.GET)
+//	public String posts(@PathVariable Integer page, Model model) {
+//		Sort sort = new Sort(Direction.DESC, "id");
+//		Pageable pageRequest = new PageRequest(page - 1, 5, sort);
+//		Page<Post> posts = postRepository.findAll(pageRequest);
+//		model.addAttribute("posts", posts.getContent());
+//		model.addAttribute("pagina", page);
+//
+//		if (posts.hasNextPage()) {
+//			proximo = page + 1;
+//		}
+//		if (posts.hasPreviousPage()) {
+//			anterior = page - 1;
+//		}
+//		model.addAttribute("proximo", proximo);
+//		model.addAttribute("anterior", anterior);
+//		return "index/posts";
+//	}
+//	
+//	
 //	@RequestMapping(value="page", produces="application/json")
 //	public @ResponseBody List<PostDto> page2(@RequestParam Integer page,Model model){		
 //		Sort sort = new Sort(Direction.DESC, "id");   

@@ -54,9 +54,20 @@ public class PostController {
 	public String create(@Valid Post post, BindingResult result) {
 		if (result.hasErrors())
 			return "posts/create";
+		
 		postRepository.save(post);
 		return "redirect:/posts";
 	}
+	
+	//@RequestMapping(method = RequestMethod.PUT)
+	@RequestMapping(value = "/posts", method = RequestMethod.PUT)
+	public String update(@Valid Post post, BindingResult result) {
+		if (result.hasErrors())
+			return "posts/update";
+
+		postRepository.save(post);
+		return "redirect:/posts";
+	}	
 
 	@RequestMapping(value = "/posts/{id}/form", method = RequestMethod.GET)
 	public String updateForm(@PathVariable("id") Long id, ModelMap modelMap) {
@@ -64,14 +75,7 @@ public class PostController {
 		return "posts/update";
 	}
 
-	@RequestMapping(method = RequestMethod.PUT)
-	public String update(@Valid Post post, BindingResult result) {
-		if (result.hasErrors())
-			return "posts/update";
 
-		postRepository.save(post);
-		return "redirect:/posts";
-	}
 
 	@RequestMapping(value = "/posts/{id}", method = RequestMethod.POST)
 	public String createComment(@Valid Comment comment, BindingResult result,

@@ -21,7 +21,7 @@
 				$.each(x,function(){
 					$('ul#lista').append('<li>' + this['title'] + '</li>');
 					$('ul#lista').append('<li>' + this['body'] + '</li>');
-					$('ul#lista').append('<li>' + this['dataCiacao'] + '</li>');
+					$('ul#lista').append('<li>' + this['dataCriacao'] + '</li>');
 				});				
 			});
 		};
