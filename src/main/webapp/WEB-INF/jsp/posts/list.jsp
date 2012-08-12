@@ -12,33 +12,26 @@
   <div>
     <h2>Listing Posts</h2>
     
-    <c:url var="urlPesquisa" value="/posts" />
+    <c:url var="urlPesquisa" value="/postsearch" />  
     
-<!--     <fieldset title="Pesquisar"> -->
-<%--         <form:form action="${urlPesquisa}" method="POST"> --%>
-        	
-<!-- 			<h3>Pesquisar</h3> -->
-			
-<!-- 			<input alt="Pesquisar" title="Pesquisar" type="button" value="Pesquisar"/> -->
-			
-<%--     	</form:form>    --%>
-<!--     </fieldset> -->
-    
-    <form:form action="${urlPesquisa}" commandName="searchCriteria" method="POST">
-    	<fieldset>
-	        <legend><spring:message code="Pesquisa"/></legend>
+
+	<form:form action="/postsearch" commandName="searchCriteria" method="POST">
+	    <fieldset>
+	        <legend>Pesquisa</legend>
 	        <div>
-	            <form:label path="pesquisa">
-	            <spring:message code="Pesquisa"/></form:label>
-	            <form:input path="pesquisa" type="text"/>
+	            <form:label path="searchTerm">Termo da pesquisa</form:label>
+	            <form:input path="searchTerm" type="text"/>
 	        </div>
 	        <div>
-	            <input type="submit" value="<spring:message code="Pesquisar"/>"/>
+	            <input type="submit" value="Pesquisar"/>
 	        </div>
-    	</fieldset>
+	    </fieldset>
 	</form:form>
-    
-    
+
+
+
+
+	
     
     <c:if test="${not empty posts}">
       <table>

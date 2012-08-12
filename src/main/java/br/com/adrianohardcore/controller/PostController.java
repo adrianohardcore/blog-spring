@@ -1,6 +1,7 @@
 package br.com.adrianohardcore.controller;
 
 import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -11,8 +12,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import br.com.adrianohardcore.dto.SearchDTO;
 import br.com.adrianohardcore.model.Comment;
 import br.com.adrianohardcore.model.Post;
 import br.com.adrianohardcore.repository.CommentRepository;
@@ -47,9 +52,48 @@ public class PostController {
 		Sort sort = new Sort(Direction.DESC, "id"); 
 		Pageable pageRequest = new PageRequest(1 - 1, 5, sort);   
 		Page<Post> posts = postRepository.findAll(pageRequest);
+		
+		String search = "teste";		
+		model.addAttribute("search", search);		
 		model.addAttribute("posts", posts.getContent());		
+
 		return "posts/list";
 	}	
+	
+//	@RequestMapping(value = "/postsearch", method = RequestMethod.POST)
+//	@ResponseBody
+//	public String search(@RequestBody String search,ModelMap model){		
+//		Sort sort = new Sort(Direction.DESC, "id");
+//		Pageable pageRequest = new PageRequest(1 - 1, 5, sort);		
+//		Page<Post> posts = postRepository.findByTitleLike(search, pageRequest);
+//		model.addAttribute("posts", posts.getContent());		
+//		return "posts/list";
+//	}
+	
+	@RequestMapping(value = "/postsearch", method = RequestMethod.POST)
+    @ResponseBody
+    public Page<Post> search(@RequestBody SearchDTO searchCriteria) {        
+        String searchTerm = searchCriteria.getSearchTerm();        
+		Sort sort = new Sort(Direction.DESC, "id");
+		Pageable pageRequest = new PageRequest(1 - 1, 5, sort);		
+		Page<Post> posts = postRepository.findByTitleLike(searchTerm, searchCriteria.getPageIndex());		
+		return posts;
+    }
+	
+//    @RequestMapping(value = "/person/search/page", method = RequestMethod.POST)
+//    @ResponseBody
+//    public List<PersonDTO> search(@RequestBody SearchDTO searchCriteria) {
+//        LOGGER.debug("Searching persons with search criteria: " + searchCriteria);
+//        
+//        String searchTerm = searchCriteria.getSearchTerm();
+//        List<Person> persons = personService.search(searchTerm, searchCriteria.getPageIndex());
+//        LOGGER.debug("Found " + persons.size() + " persons");
+//
+//        return constructDTOs(persons);
+//    }
+
+	
+	
 
 	@RequestMapping(value = "/posts/{id}", method = RequestMethod.DELETE)
 	public String delete(@PathVariable("id") Long id) {
