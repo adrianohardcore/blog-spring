@@ -3,6 +3,7 @@ package br.com.adrianohardcore.model;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.Set;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -30,52 +31,56 @@ public class Post implements Serializable{
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id")	
 	private Long id;	
-	
-	@Size(min=5, message="O título não pode ter menos que 5 caracteres!")
+
+	//@Min(value=5,message="O título não pode ter menos que 5 caracteres!")
+	//@Max(value=20,message="O título não pode ter mais de 20 caracteres!")
+	@Size(min=5, max=20)
 	private String title;	
 
 	//@Min(value=10 , message="O conteúdo não pode ter menos que 10 caracteres!")
-	//@Max(value=255, message="O conteúdo não pode ter mais que 255 caracteres!")	
+	//@Max(value=255, message="O conteúdo não pode ter mais que 255 caracteres!")
+	@Size(min=5, max=1000)
 	private String body;
 	
 	@OneToMany(mappedBy="post", fetch=FetchType.LAZY, cascade = CascadeType.ALL)
 	private Set<Comment>  comments;
 	
-	private Long usuarioCriacao = (long) 1;
+	private Long userCreation = (long) 1;
 	
-	private Long usuarioModificacao = (long) 1;
+	private Long userUpdate = (long) 1;
 	
     @DateTimeFormat
     @JsonSerialize(using=JsonDateSerializer.class)
-    private Date dataCriacao;
+    private Date dateCreation;
     
     @DateTimeFormat
-    private Date dataModificacao;
+    @JsonSerialize(using=JsonDateSerializer.class)
+    private Date dateUpdate;
     
     @PrePersist
     public void prePersist() {
         Date now = new Date();
-        dataCriacao = now;
-        dataModificacao = now;   
+        dateCreation = now;
+        dateUpdate = now;   
         
     }
     
     @PreUpdate
     public void preUpdate() {
-        dataModificacao = new Date();
+        dateUpdate = new Date();
     }
 	
-	public Date getDataCriacao() {
-		return dataCriacao;
+	public Date getDateCreation() {
+		return dateCreation;
 	}
-	public void setDataCriacao(Date dataCriacao) {
-		this.dataCriacao = dataCriacao;
+	public void setDateCreation(Date dataCriacao) {
+		this.dateCreation = dataCriacao;
 	}
-	public Date getDataModificacao() {
-		return dataModificacao;
+	public Date getDateUpdate() {
+		return dateUpdate;
 	}
-	public void setDataModificacao(Date dataModificacao) {
-		this.dataModificacao = dataModificacao;
+	public void setDateUpdate(Date dataModificacao) {
+		this.dateUpdate = dataModificacao;
 	}
 	public Long getId() {
 		return id;
@@ -102,24 +107,19 @@ public class Post implements Serializable{
 		this.comments = comments;
 	}
 
-	public Long getUsuarioCriacao() {
-		return usuarioCriacao;
+	public Long getUserCreation() {
+		return userCreation;
 	}
 
-	public void setUsuarioCriacao(Long usuarioCriacao) {
-		this.usuarioCriacao = usuarioCriacao;
+	public void setUserCreation(Long usuarioCriacao) {
+		this.userCreation = usuarioCriacao;
 	}
 
-	public Long getUsuarioModificacao() {
-		return usuarioModificacao;
+	public Long getUserUpdate() {
+		return userUpdate;
 	}
 
-	public void setUsuarioModificacao(Long usuarioModificacao) {
-		this.usuarioModificacao = usuarioModificacao;
+	public void setUserUpdate(Long usuarioModificacao) {
+		this.userUpdate = usuarioModificacao;
 	}
-	
-	
-	
-	
-
 }

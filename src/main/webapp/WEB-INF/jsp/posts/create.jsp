@@ -7,27 +7,22 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %> 
 <%@ page import="org.springframework.security.core.context.SecurityContextHolder"%>
 
-<html>
 <head>
-	<title>Cadastrar</title>  
-<style type="text/css" media="screen">
-@import url("<c:url value="/static/styles/style.css"/>");
-</style>
-
+	<title>Nova postagem</title>
 </head>
 <body>
 	<div>
-		<h1>Novo Postagem</h1>
+		<h1>Nova postagem</h1>
 		<c:url var="url" value="/posts" />
 		<form:form action="${url}" method="POST" modelAttribute="post">
 			<p>
-				<label for="title">Title:</label>
+				<label for="title">Título:</label>
 				<form:errors path="title" cssClass="error" />
 				<br />
-				<form:input cssStyle="width:250px" maxlength="30" path="title" size="30" />
+				<form:input cssStyle="width:250px" maxlength="20" path="title" size="20" />
 			</p>
 			<p>
-				<label for="body">Body:</label>
+				<label for="body">Texto:</label>
 				<form:errors path="body" cssClass="error" />
 				<br />
 				<form:textarea path="body" rows="10" cols="20" maxlength="255"
@@ -37,9 +32,10 @@
 				<input id="criar" type="submit" value="Create" />
 			</p>
 		</form:form>
+		
 		<div>
 			<a href="<c:url value="/posts"/>">Ver todos</a>
 		</div>
+		
 	</div>
 </body>
-</html>
