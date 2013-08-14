@@ -22,6 +22,7 @@ public class PostService {
 	public Page<Post> list(Pageable pageRequest){	
 		LOGGER.debug("Lista de posts");		
 		Page<Post> posts = repository.findAll(pageRequest);		
+		
 		return posts;
 	}
 }

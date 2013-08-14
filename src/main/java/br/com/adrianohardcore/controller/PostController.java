@@ -74,9 +74,11 @@ public class PostController {
     @ResponseBody
     public Page<Post> search(@RequestBody SearchDTO searchCriteria) {        
         String searchTerm = searchCriteria.getSearchTerm();        
-		Sort sort = new Sort(Direction.DESC, "id");
-		Pageable pageRequest = new PageRequest(1 - 1, 5, sort);		
-		Page<Post> posts = postRepository.findByTitleLike(searchTerm, searchCriteria.getPageIndex());		
+		Sort sort = new Sort(Direction.DESC, "id");		
+		//Pageable pageRequest = new PageRequest(1 - 1, 5, sort);		
+		Pageable pageRequest = new PageRequest(1 -1,5 , sort);
+		//Page<Post> posts = postRepository.findByTitleLike(searchTerm, searchCriteria.getPageIndex(),pageRequest);		
+		Page<Post> posts = postRepository.findAll(pageRequest);
 		return posts;
     }
 	
